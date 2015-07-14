@@ -1,0 +1,7 @@
+---
+vim_playbook_version: "0.0.1"
+vim_version_tag: "v{{vim_version}}"
+vim_file_tag: "vim-{{vim_version}}"
+vim_file_name: "{{vim_file_tag}}.tar.gz"
+vim_base_url: "https://github.com/vim/vim/archive/"
+vim_tarball_url: "{{vim_base_url}}{{vim_version_tag}}.tar.gz"

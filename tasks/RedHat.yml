@@ -1,0 +1,27 @@
+---
+- name: Install RedHat packages
+  yum: pkg={{item}} state=present
+  with_items:
+    - ruby
+    - ruby-devel
+    - lua
+    - lua-devel
+    - luajit
+    - luajit-devel
+    - ctags
+    - mercurial
+    - python
+    - python-devel
+    - python3
+    - python3-devel
+    - tcl-devel
+    - perl
+    - perl-devel
+    - perl-ExtUtils-ParseXS
+    - perl-ExtUtils-XSpp
+    - perl-ExtUtils-CBuilder
+    - perl-ExtUtils-Embed
+    - wget
+    - curl
+    - gcc-c++
+    - gcc

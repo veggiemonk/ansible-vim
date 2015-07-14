@@ -1,0 +1,17 @@
+---
+
+- hosts: localhost
+  connection: local
+  sudo: yes
+
+  tasks:
+    - name: Check vim
+      command: which vim
+      register: vim_path
+
+    - debug:
+        msg: "vim was installed in {{vim_path.stdout}}"
+
+    - fail:
+        msg: "vim Not Found, tests failed."
+      when: vim_path.stdout != "/usr/local/bin/vim"

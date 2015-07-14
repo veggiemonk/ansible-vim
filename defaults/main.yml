@@ -1,0 +1,5 @@
+---
+vim_version: "7-4-781"
+vim_install_method: "source"
+vim_path: "/usr/local/"
+vim_tmp_dir: "/tmp/"

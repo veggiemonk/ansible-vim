@@ -1,0 +1,43 @@
+---
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
+
+- include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Checking installed version of vim
+shell: /usr/bin/test "$({{vim_path}}bin/vim --version 2> /dev/null)" = {{vim_version_tag}}
+  register: wanted_version_installed
+  ignore_errors: True
+  changed_when: "wanted_version_installed.rc == 1"
+
+- name: Download vim {{vim_version_tag}}
+  get_url: url={{vim_tarball_url}} dest={{vim_tmp_dir}}{{vim_file_name}} timeout=120
+  when: wanted_version_installed.rc == 1
+
+- name: Unpack vim {{vim_version_tag}}
+  command: tar -xzf {{vim_file_name}} chdir={{vim_tmp_dir}}
+  when: wanted_version_installed.rc == 1
+
+- name: Compile and install vim {{vim_version_tag}}
+  shell: |
+   ./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp \
+            --enable-pythoninterp \
+            --with-python-config-dir=/usr/lib/python2.7/config \
+            --enable-perlinterp \
+            --enable-luainterp \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix={{vim_path}} &&
+            make &&
+            make install
+            chdir={{vim_tmp_dir}}{{vim_file_tag}}
+  sudo: true
+  when: wanted_version_installed.rc == 1
+
+- name: Register remote PATH File
+  shell: "echo $PATH"
+  register: vim_path_out
+

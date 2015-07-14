@@ -1,0 +1,36 @@
+---
+- name: Remove Native packages
+  apt: pkg={{item}} state=absent
+  with_items:
+    - vim
+    - vim-runtime
+    - gvim
+    - vim-tiny
+    - vim-common
+    - vim-gui-common
+
+- name: Install Debian packages
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items:
+    - libncurses5-dev
+    - libgnome2-dev
+    - libgnomeui-dev
+    - libgtk2.0-dev
+    - libatk1.0-dev
+    - libbonoboui2-dev
+    - libcairo2-dev
+    - libx11-dev
+    - libxpm-dev
+    - libxt-dev
+    - python-dev
+    - python3-dev
+    - ruby-dev
+    - wget
+    - curl
+    - make
+    - g++
+    - gcc
+    - libcurl4-openssl-dev
+    - libsasl2-2
+    - libsasl2-dev
+    - libcurl3
