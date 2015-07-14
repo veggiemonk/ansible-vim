@@ -6,7 +6,7 @@
   when: ansible_os_family == "RedHat"
 
 - name: Checking installed version of vim
-shell: /usr/bin/test "$({{vim_path}}bin/vim --version 2> /dev/null)" = {{vim_version_tag}}
+  shell: /usr/bin/test "$({{vim_path}}bin/vim --version 2> /dev/null)" = {{vim_version_tag}}
   register: wanted_version_installed
   ignore_errors: True
   changed_when: "wanted_version_installed.rc == 1"
